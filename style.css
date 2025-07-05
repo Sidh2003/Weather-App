@@ -179,8 +179,8 @@ body.dark footer a {
 
 @media (max-width: 480px) {
   .weather img {
-    height: auto;
-    max-height: 160px;
+    height: 300px;
+    /* max-height: 160px; */
   }
 
   .content {
