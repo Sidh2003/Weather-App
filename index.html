@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="main-container" id="mainContainer">
+    <div class="top-bar">
+      <button id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <div class="content">
+      <div class="search">
+        <input type="text" id="cityInput" placeholder="Enter city name..." aria-label="City name" />
+        <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+      </div>
+
+      <div class="weather">
+        <img id="weatherIcon" src="./img/default.png" alt="Weather Icon" />
+        <h1 id="temperature">--°C</h1>
+        <h2 id="cityName">City Name</h2>
+      </div>
+
+      <div class="details">
+        <div class="detail">
+          <i class="fas fa-water"></i>
+          <p><span id="humidity">--%</span><br><small>Humidity</small></p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-wind"></i>
+          <p><span id="wind">-- km/h</span><br><small>Wind Speed</small></p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <a href="https://github.com/Sidh2003" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://www.linkedin.com/in/siddhesh-sonavane/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </footer>
+  </div>
+</body>
+</html>
+
+
