@@ -79,10 +79,14 @@ body.dark #themeToggle {
 
 .search input {
   flex: 1;
+  min-width: 0;
+  /* prevents overflow */
   padding: 14px 16px;
+  font-size: 16px;
   border: none;
   outline: none;
-  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search button {
@@ -95,10 +99,9 @@ body.dark #themeToggle {
 }
 
 .weather img {
-  height: 250px;
-  width: auto;
-  margin: 10px 0;
-  max-width: 100%;
+  max-width: 80vw;
+  /* limits image width on small screens */
+  height: auto;
 }
 
 .weather h1 {
@@ -176,15 +179,20 @@ body.dark footer a {
 
 @media (max-width: 480px) {
   .weather img {
-    height: 160px;
+    height: auto;
+    max-height: 160px;
+  }
+
+  .content {
+    padding-top: 10px;
   }
 
   .weather h1 {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .weather h2 {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .detail i {
@@ -192,17 +200,22 @@ body.dark footer a {
   }
 
   .detail p {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .search {
+    flex-wrap: nowrap;
+    max-width: 95%;
   }
 
   .search input {
-    padding: 12px;
     font-size: 14px;
+    padding: 10px 12px;
   }
 
   .search button {
     font-size: 16px;
-    padding: 0 16px;
+    padding: 0 12px;
   }
 
   footer {
