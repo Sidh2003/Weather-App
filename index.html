@@ -2,50 +2,269 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Weather App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg-light: linear-gradient(135deg, #74ebd5, #acb6e5);
+      --bg-dark: linear-gradient(135deg, #232526, #414345);
+      --text-light: #fff;
+      --text-dark: #111;
+      --card-light: rgba(255, 255, 255, 0.2);
+      --card-dark: rgba(0, 0, 0, 0.4);
+    }
 
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    body {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: 0.3s ease all;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .theme-toggle button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card-light);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark .app {
+      background: var(--card-dark);
+    }
+
+    .search-box {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px 0 0 10px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .search-box button {
+      padding: 12px 16px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 0 10px 10px 0;
+      cursor: pointer;
+    }
+
+    .weather-icon {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .weather-icon img {
+      width: 120px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .temperature {
+      font-size: 48px;
+      text-align: center;
+    }
+
+    .city-name {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .details .item {
+      text-align: center;
+    }
+
+    .details .item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        background: transparent;
+        box-shadow: none;
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="main-container" id="mainContainer">
-    <!-- <div class="top-bar">
-      <button id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
-    </div> -->
+  <div class="theme-toggle">
+    <button id="themeBtn" aria-label="Toggle Theme">
+      <i class="fas fa-moon"></i>
+    </button>
+  </div>
 
-    <div class="content">
-      <div class="search">
-        <input type="text" id="cityInput" placeholder="Enter city name..." aria-label="City name" />
-        <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
-      </div>
-
-      <div class="weather">
-        <img id="weatherIcon" src="./img/default.png" alt="Weather Icon" />
-        <h1 id="temperature">--°C</h1>
-        <h2 id="cityName">City Name</h2>
-      </div>
-
-      <div class="details">
-        <div class="detail">
-          <i class="fas fa-water"></i>
-          <p><span id="humidity">--%</span><br><small>Humidity</small></p>
-        </div>
-        <div class="detail">
-          <i class="fas fa-wind"></i>
-          <p><span id="wind">-- km/h</span><br><small>Wind Speed</small></p>
-        </div>
-      </div>
+  <div class="app">
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="Enter city..." />
+      <button id="searchBtn">Search</button>
     </div>
 
-    <footer>
-      <a href="https://github.com/Sidh2003" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-      <a href="https://www.linkedin.com/in/siddhesh-sonavane/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-    </footer>
+    <div class="weather-icon">
+      <img id="weatherIcon" src="./img/default.png" alt="Weather Icon" />
+    </div>
+
+    <div class="temperature" id="temperature">--°C</div>
+    <div class="city-name" id="cityName">City Name</div>
+
+    <div class="details">
+      <div class="item">
+        <i class="fas fa-water"></i>
+        <span id="humidity">--%</span><br />
+        <small>Humidity</small>
+      </div>
+      <div class="item">
+        <i class="fas fa-wind"></i>
+        <span id="wind">-- km/h</span><br />
+        <small>Wind Speed</small>
+      </div>
+    </div>
   </div>
+
+  <div class="footer">
+    <a href="https://github.com/Sidh2003" target="_blank">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/siddhesh-sonavane/" target="_blank">
+      <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+  </div>
+
+  <script>
+    const apiKey = "67475fc1edbd457d633537c353f2751c";
+    const searchBtn = document.getElementById("searchBtn");
+    const cityInput = document.getElementById("cityInput");
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const icon = themeBtn.querySelector("i");
+      icon.classList.toggle("fa-moon");
+      icon.classList.toggle("fa-sun");
+    });
+
+    searchBtn.addEventListener("click", () => {
+      const city = cityInput.value.trim();
+      if (city) getWeather(city);
+    });
+
+    function getWeather(city) {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
+        city
+      )}&appid=${apiKey}&units=metric`;
+
+      fetch(url)
+        .then((res) => {
+          if (!res.ok) throw new Error("City not found");
+          return res.json();
+        })
+        .then((data) => updateUI(data))
+        .catch((err) => {
+          document.getElementById("cityName").textContent = "City not found";
+          document.getElementById("temperature").textContent = "--°C";
+          document.getElementById("humidity").textContent = "--%";
+          document.getElementById("wind").textContent = "-- km/h";
+          document.getElementById("weatherIcon").src = "./img/default.png";
+        });
+    }
+
+    function updateUI(data) {
+      const { name } = data;
+      const { temp, humidity } = data.main;
+      const { speed } = data.wind;
+      const timestamp = data.dt;
+      const sunrise = data.sys.sunrise;
+      const sunset = data.sys.sunset;
+      const timezoneOffset = data.timezone;
+      const weatherMain = data.weather[0].main.toLowerCase();
+
+      const localNow = timestamp + timezoneOffset;
+      const localSunrise = sunrise + timezoneOffset;
+      const localSunset = sunset + timezoneOffset;
+
+      let icon = "default.png";
+
+      if (weatherMain.includes("rain")) icon = "rain.png";
+      else if (weatherMain.includes("snow")) icon = "snow.png";
+      else if (localNow < localSunrise) icon = "moon.png";
+      else if (localNow >= localSunrise && localNow < localSunrise + 7200) icon = "sunrise.png";
+      else if (localNow >= localSunset && localNow < localSunset + 7200) icon = "sunset.png";
+      else if (localNow >= localSunset + 7200 || localNow < localSunrise) icon = "moon.png";
+
+      document.getElementById("cityName").textContent = name;
+      document.getElementById("temperature").textContent = `${Math.round(temp)}°C`;
+      document.getElementById("humidity").textContent = `${humidity}%`;
+      document.getElementById("wind").textContent = `${speed} km/h`;
+      document.getElementById("weatherIcon").src = `./img/${icon}`;
+    }
+  </script>
 </body>
 </html>
